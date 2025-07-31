@@ -130,3 +130,15 @@ main {
 .new-game:active {
   background-color: #1090b7;
 }
+
+.guess-correct,
+.guess-correct:hover,
+.guess-correct:focus {
+  background-color: #10A95B;
+}
+
+.guess-wrong,
+.guess-wrong:hover,
+.guess-wrong:focus {
+  background-color: #EC5D49;
+}

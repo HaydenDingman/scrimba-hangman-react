@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { languages } from './languages'
+import { clsx } from "clsx"
 import './App.css'
 
 function App() {
@@ -18,13 +19,21 @@ function App() {
   })
 
   const letterElements = currentWord.split('').map((letter, index) => {
-    return (<span key={index} className="word-letter">{letter.toUpperCase()}</span>)
-  })
+        if (guessedLetters.includes(letter)) {
+            return <span key={index} className="word-letter">{letter.toUpperCase()}</span>
+        } else {
+            return <span key={index} className="word-letter"> </span>
+        }
+      }
+    )
 
   const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
   const keyboardElements = alphabet.split("").map(letter => {
-    return (<button key={letter} onClick={() => addGuess(letter)} className="keyboard-letter">{letter.toUpperCase()}</button>)
+    const isGuessed = guessedLetters.includes(letter);
+    const isCorrect = isGuessed && currentWord.split("").includes(letter);
+    const isWrong = isGuessed && !currentWord.split("").includes(letter);
+    return (<button key={letter} onClick={() => addGuess(letter)} className={clsx("keyboard-letter", {"guess-correct": isCorrect, "guess-wrong": isWrong})}>{letter.toUpperCase()}</button>)
   })
 
   function addGuess(letter) {
