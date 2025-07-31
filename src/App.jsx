@@ -3,16 +3,20 @@ import { languages } from './languages'
 import './App.css'
 
 function App() {
-  
+
+  const [guessedLetters, setGuessedLetters] = useState([]);
+  const [currentWord, setCurrentWord] = useState("react");
+
+  console.log(guessedLetters);
+
+  // Turn currentWord into an array, then map to create elements.
+
   const languageElems = languages.map(language => {
       return (
         <span key={language.name} className="language" style={{backgroundColor: language.backgroundColor, color: language.color}}>{language.name}</span>
       )
   })
 
-  const [currentWord, setCurrentWord] = useState("react");
-
-  // Turn currentWord into an array, then map to create elements.
   const letterElements = currentWord.split('').map((letter, index) => {
     return (<span key={index} className="word-letter">{letter.toUpperCase()}</span>)
   })
@@ -20,8 +24,14 @@ function App() {
   const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
   const keyboardElements = alphabet.split("").map(letter => {
-    return (<button key={letter} className="keyboard-letter">{letter.toUpperCase()}</button>)
+    return (<button key={letter} onClick={() => addGuess(letter)} className="keyboard-letter">{letter.toUpperCase()}</button>)
   })
+
+  function addGuess(letter) {
+    setGuessedLetters(prevGuesses => {
+      return (prevGuesses.includes(letter) ? prevGuesses : [...prevGuesses, letter])
+    })
+  }
 
   return (
     <main>
