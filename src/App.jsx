@@ -10,6 +10,8 @@ function App() {
 
   const wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter)).length;
 
+  const isGameOver = (wrongGuessCount === (languages.length - 1)) || currentWord.split("").filter(letter => !guessedLetters.includes(letter)).length === 0;
+
   // Turn currentWord into an array, then map to create elements.
 
   const languageElems = languages.map((language, index) => {
@@ -58,7 +60,7 @@ function App() {
       <section className="keyboard-container">
         {keyboardElements}
       </section>
-      <button className="new-game">New Game</button>
+      {isGameOver? <button className="new-game">New Game</button> : null}
     </main>
   )
 }
