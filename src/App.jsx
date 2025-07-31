@@ -14,7 +14,13 @@ function App() {
 
   // Turn currentWord into an array, then map to create elements.
   const letterElements = currentWord.split('').map((letter, index) => {
-    return (<span key={index} className="letter">{letter.toUpperCase()}</span>)
+    return (<span key={index} className="word-letter">{letter.toUpperCase()}</span>)
+  })
+
+  const alphabet = "abcdefghijklmnopqrstuvwxyz"
+
+  const keyboardElements = alphabet.split("").map(letter => {
+    return (<button key={letter} className="keyboard-letter">{letter.toUpperCase()}</button>)
   })
 
   return (
@@ -32,6 +38,9 @@ function App() {
       </section>
       <section className="word-container">
         {letterElements}
+      </section>
+      <section className="keyboard-container">
+        {keyboardElements}
       </section>
     </main>
   )

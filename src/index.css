@@ -68,7 +68,7 @@ main {
   align-items: center;
 }
 
-.letter {
+.word-letter {
   background-color: #323232;
   color: #F9F4DA;
   font-weight: 700;
@@ -77,4 +77,34 @@ main {
   height: 2.5em;
   width: 2.5em;
   border-bottom: 1px solid #F9F4DA;
+}
+
+.keyboard-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+}
+
+.keyboard-letter {
+  background-color: #FCBA29;
+  color: #1E1E1E;
+  font-family: "Hanken Grotesk", Arial, sans-serif;
+  font-size: 1.5em;
+  line-height: 1.5em;
+  width: 2.5em;
+  height: 2.5em;
+  border: 1px solid #D7D7D7;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.keyboard-letter:hover,
+.keyboard-letter:focus {
+  background-color: #fcc95a;
+}
+
+.keyboard-letter:active {
+  background-color: #d39b22;
 }
