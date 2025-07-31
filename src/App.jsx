@@ -10,7 +10,9 @@ function App() {
 
   const wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter)).length;
 
-  const isGameOver = (wrongGuessCount === (languages.length - 1)) || currentWord.split("").filter(letter => !guessedLetters.includes(letter)).length === 0;
+  const isGameWon = currentWord.split("").filter(letter => !guessedLetters.includes(letter)).length === 0;
+  const isGameLost = wrongGuessCount === (languages.length - 1)
+  const isGameOver = isGameLost || isGameWon;
 
   // Turn currentWord into an array, then map to create elements.
 
