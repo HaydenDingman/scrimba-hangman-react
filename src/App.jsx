@@ -8,24 +8,21 @@ function App() {
   const [guessedLetters, setGuessedLetters] = useState([]);
   const [currentWord, setCurrentWord] = useState("react");
 
-  console.log(guessedLetters);
+  const wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter)).length;
 
   // Turn currentWord into an array, then map to create elements.
 
-  const languageElems = languages.map(language => {
+  const languageElems = languages.map((language, index) => {
       return (
-        <span key={language.name} className="language" style={{backgroundColor: language.backgroundColor, color: language.color}}>{language.name}</span>
+        <span key={language.name} 
+              className={clsx("language", {lost: (index < wrongGuessCount)})} 
+              style={{backgroundColor: language.backgroundColor, color: language.color}}>{language.name}</span>
       )
   })
 
   const letterElements = currentWord.split('').map((letter, index) => {
-        if (guessedLetters.includes(letter)) {
-            return <span key={index} className="word-letter">{letter.toUpperCase()}</span>
-        } else {
-            return <span key={index} className="word-letter"> </span>
-        }
-      }
-    )
+            return <span key={index} className="word-letter">{guessedLetters.includes(letter) ? letter.toUpperCase() : ""}</span>
+      })
 
   const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
