@@ -16,6 +16,10 @@ body {
 main {
   width: 50vw;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2em;
 }
 
 .title {
@@ -34,10 +38,25 @@ main {
   color: #F9F4DA;
   padding: 1em;
   font-weight: 500;
-  margin-top: 2em;
+  border-radius: 4px;
+  width: 100%;
 }
 
 .status > h2,
 .status > h3 {
   margin: 0.25em;
+}
+
+.language-container {
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  font-size: 0.875rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.language {
+  padding: 1em 2em;
 }
