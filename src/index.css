@@ -59,4 +59,22 @@ main {
 
 .language {
   padding: 1em 2em;
+  border-radius: 3px;
+}
+
+.word-container {
+  display: flex;
+  gap: 0.25em;
+  align-items: center;
+}
+
+.letter {
+  background-color: #323232;
+  color: #F9F4DA;
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 2.5em;
+  height: 2.5em;
+  width: 2.5em;
+  border-bottom: 1px solid #F9F4DA;
 }

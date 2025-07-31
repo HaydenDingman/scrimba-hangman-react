@@ -6,8 +6,15 @@ function App() {
   
   const languageElems = languages.map(language => {
       return (
-        <div className="language" style={{backgroundColor: language.backgroundColor, color: language.color}}>{language.name}</div>
+        <span key={language.name} className="language" style={{backgroundColor: language.backgroundColor, color: language.color}}>{language.name}</span>
       )
+  })
+
+  const [currentWord, setCurrentWord] = useState("react");
+
+  // Turn currentWord into an array, then map to create elements.
+  const letterElements = currentWord.split('').map((letter, index) => {
+    return (<span key={index} className="letter">{letter.toUpperCase()}</span>)
   })
 
   return (
@@ -22,6 +29,9 @@ function App() {
       </section>
       <section className="language-container">
         {languageElems}
+      </section>
+      <section className="word-container">
+        {letterElements}
       </section>
     </main>
   )
