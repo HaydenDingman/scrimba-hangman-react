@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { languages } from './languages'
 import { clsx } from "clsx"
 import { getFarewellText, getWord } from './utils'
+import Confetti from "react-confetti"
 import './App.css'
 
 function App() {
@@ -88,6 +89,7 @@ function App() {
 
   return (
     <main>
+      {isGameWon && <Confetti />}
       <header>
         <h1 className="title">Assembly: Endgame</h1>
         <p className="instructions">Guess the word in under 8 attempts to keep the programming world safe from Assembly!</p>
