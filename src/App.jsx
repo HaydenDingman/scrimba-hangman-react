@@ -8,20 +8,23 @@ function App() {
 
   const [guessedLetters, setGuessedLetters] = useState([]);
   const [currentWord, setCurrentWord] = useState("react");
-  const [correctGuess, setCorrectGuess] = useState(true)
 
   const wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter)).length;
 
   const isGameWon = currentWord.split("").every(letter => guessedLetters.includes(letter));
   const isGameLost = wrongGuessCount === (languages.length - 1)
   const isGameOver = isGameLost || isGameWon;
+  const lastGuessedLetter = guessedLetters[guessedLetters.length - 1]
+  const isLastGuessIncorrect = lastGuessedLetter && !currentWord.includes(lastGuessedLetter)
 
   // Turn currentWord into an array, then map to create elements.
 
   function renderGameStatus() {
     if (!isGameOver) {
-        if (!correctGuess) {
+        if (isLastGuessIncorrect) {
             return (<h2>{getFarewellText(languages[wrongGuessCount - 1].name)}</h2>)
+        } else {
+          return null
         }
     }
 
@@ -33,7 +36,7 @@ function App() {
         </>
       )
     } 
-    else if (isGameLost) {
+    else {
       return (
         <>
           <h2>Game Over!</h2>
@@ -68,12 +71,6 @@ function App() {
     setGuessedLetters(prevGuesses => {
       return (prevGuesses.includes(letter) ? prevGuesses : [...prevGuesses, letter])
     })
-    
-    if (currentWord.split("").includes(letter)) {
-        setCorrectGuess(true);
-    } else {
-        setCorrectGuess(false);
-    }
   }
 
   return (
@@ -82,7 +79,7 @@ function App() {
         <h1 className="title">Assembly: Endgame</h1>
         <p className="instructions">Guess the word in under 8 attempts to keep the programming world safe from Assembly!</p>
       </header>
-      <section className={clsx("status", {"game-won": isGameWon, "game-lost":isGameLost, "incorrect": !correctGuess })}>
+      <section className={clsx("status", {"game-won": isGameWon, "game-lost":isGameLost, "incorrect": isLastGuessIncorrect && !isGameLost })}>
           {renderGameStatus()}
       </section>
       <section className="language-container">
