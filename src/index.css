@@ -113,6 +113,10 @@ span.language.lost::before {
   border-bottom: 1px solid #F9F4DA;
 }
 
+.lost-letter {
+  color: #EC5D49;
+}
+
 .keyboard-container {
   display: flex;
   flex-wrap: wrap;

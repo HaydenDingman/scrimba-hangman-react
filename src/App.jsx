@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { languages } from './languages'
 import { clsx } from "clsx"
-import { getFarewellText } from './utils'
+import { getFarewellText, getWord } from './utils'
 import './App.css'
 
 function App() {
 
   const [guessedLetters, setGuessedLetters] = useState([]);
-  const [currentWord, setCurrentWord] = useState("react");
+  const [currentWord, setCurrentWord] = useState(() => getWord());
 
   const wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter)).length;
 
@@ -55,7 +55,7 @@ function App() {
   })
 
   const letterElements = currentWord.split('').map((letter, index) => {
-            return <span key={index} className="word-letter">{guessedLetters.includes(letter) ? letter.toUpperCase() : ""}</span>
+            return <span key={index} className={clsx("word-letter", isGameLost && !guessedLetters.includes(letter) ? "lost-letter" : "")}>{(guessedLetters.includes(letter) || isGameOver) ? letter.toUpperCase() : ""}</span>
       })
 
   const alphabet = "abcdefghijklmnopqrstuvwxyz"
@@ -81,6 +81,11 @@ function App() {
     })
   }
 
+  function newGame() {
+    setGuessedLetters([])
+    setCurrentWord(getWord())
+  }
+
   return (
     <main>
       <header>
@@ -102,11 +107,11 @@ function App() {
         <p>{isLastGuessIncorrect ? `Sorry, the letter ${lastGuessedLetter} is not in the word.` : `Correct! The letter ${lastGuessedLetter} is in the word.`}. You have {(languages.length - 1) - wrongGuessCount} guesses left.</p>
         <p>Current word: {currentWord.split("").map(letter => guessedLetters.includes(letter) ? letter : "Blank").join(" ")}</p>
       </section>
-      
+
       <section className="keyboard-container">
         {keyboardElements}
       </section>
-      {isGameOver? <button className="new-game">New Game</button> : null}
+      {isGameOver? <button className="new-game" onClick={newGame}>New Game</button> : null}
     </main>
   )
 }
