@@ -96,9 +96,13 @@ function App() {
       <section className="word-container">
         {letterElements}
       </section>
+
+      {/* Next section used for screenreader only */}
       <section className="sr-only" aria-live="polite" role="status">
+        <p>{isLastGuessIncorrect ? `Sorry, the letter ${lastGuessedLetter} is not in the word.` : `Correct! The letter ${lastGuessedLetter} is in the word.`}. You have {(languages.length - 1) - wrongGuessCount} guesses left.</p>
         <p>Current word: {currentWord.split("").map(letter => guessedLetters.includes(letter) ? letter : "Blank").join(" ")}</p>
       </section>
+      
       <section className="keyboard-container">
         {keyboardElements}
       </section>
