@@ -64,7 +64,13 @@ function App() {
     const isGuessed = guessedLetters.includes(letter);
     const isCorrect = isGuessed && currentWord.split("").includes(letter);
     const isWrong = isGuessed && !currentWord.split("").includes(letter);
-    return (<button key={letter} onClick={() => addGuess(letter)} className={clsx("keyboard-letter", {"guess-correct": isCorrect, "guess-wrong": isWrong})}>{letter.toUpperCase()}</button>)
+    return (<button 
+              key={letter} 
+              onClick={() => addGuess(letter)} 
+              className={clsx("keyboard-letter", {"guess-correct": isCorrect, "guess-wrong": isWrong})}
+              disabled={isGameOver}>
+                {letter.toUpperCase()}
+            </button>)
   })
 
   function addGuess(letter) {

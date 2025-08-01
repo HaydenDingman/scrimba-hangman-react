@@ -134,13 +134,18 @@ span.language.lost::before {
   cursor: pointer;
 }
 
-.keyboard-letter:hover,
-.keyboard-letter:focus {
+.keyboard-letter:enabled:hover,
+.keyboard-letter:enabled:focus {
   background-color: #fcc95a;
 }
 
-.keyboard-letter:active {
+.keyboard-letter:enabled:active {
   background-color: #d39b22;
+}
+
+.keyboard-letter:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .new-game {
@@ -166,13 +171,17 @@ span.language.lost::before {
 }
 
 .guess-correct,
-.guess-correct:hover,
-.guess-correct:focus {
+.guess-correct:enabled:hover,
+.guess-correct:enabled:focus,
+.guess-correct:disabled:hover,
+.guess-correct:disabled:focus {
   background-color: #10A95B;
 }
 
 .guess-wrong,
-.guess-wrong:hover,
-.guess-wrong:focus {
+.guess-wrong:enabled:hover,
+.guess-wrong:enabled:focus,
+.guess-wrong:disabled:hover,
+.guess-wrong:disabled:focus {
   background-color: #EC5D49;
 }
