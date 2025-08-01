@@ -68,7 +68,9 @@ function App() {
               key={letter} 
               onClick={() => addGuess(letter)} 
               className={clsx("keyboard-letter", {"guess-correct": isCorrect, "guess-wrong": isWrong})}
-              disabled={isGameOver}>
+              disabled={isGameOver || guessedLetters.includes(letter)}
+              aria-disabled={isGameOver || guessedLetters.includes(letter)}
+              aria-label={`Letter: ${letter}`}>
                 {letter.toUpperCase()}
             </button>)
   })
@@ -85,7 +87,7 @@ function App() {
         <h1 className="title">Assembly: Endgame</h1>
         <p className="instructions">Guess the word in under 8 attempts to keep the programming world safe from Assembly!</p>
       </header>
-      <section className={clsx("status", {"game-won": isGameWon, "game-lost":isGameLost, "incorrect": isLastGuessIncorrect && !isGameLost })}>
+      <section aria-live="polite" role="status" className={clsx("status", {"game-won": isGameWon, "game-lost":isGameLost, "incorrect": isLastGuessIncorrect && !isGameLost })}>
           {renderGameStatus()}
       </section>
       <section className="language-container">
@@ -93,6 +95,9 @@ function App() {
       </section>
       <section className="word-container">
         {letterElements}
+      </section>
+      <section className="sr-only" aria-live="polite" role="status">
+        <p>Current word: {currentWord.split("").map(letter => guessedLetters.includes(letter) ? letter : "Blank").join(" ")}</p>
       </section>
       <section className="keyboard-container">
         {keyboardElements}
