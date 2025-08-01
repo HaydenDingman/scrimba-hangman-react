@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { languages } from './languages'
 import { clsx } from "clsx"
+import { getFarewellText } from './utils'
 import './App.css'
 
 function App() {
 
   const [guessedLetters, setGuessedLetters] = useState([]);
   const [currentWord, setCurrentWord] = useState("react");
+  const [correctGuess, setCorrectGuess] = useState(true)
 
   const wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter)).length;
 
@@ -18,7 +20,9 @@ function App() {
 
   function renderGameStatus() {
     if (!isGameOver) {
-      return null;
+        if (!correctGuess) {
+            return (<h2>{getFarewellText(languages[wrongGuessCount - 1].name)}</h2>)
+        }
     }
 
     if (isGameWon) {
@@ -28,7 +32,8 @@ function App() {
           <h3>Well done! 🎉</h3>
         </>
       )
-    } else {
+    } 
+    else if (isGameLost) {
       return (
         <>
           <h2>Game Over!</h2>
@@ -63,6 +68,12 @@ function App() {
     setGuessedLetters(prevGuesses => {
       return (prevGuesses.includes(letter) ? prevGuesses : [...prevGuesses, letter])
     })
+    
+    if (currentWord.split("").includes(letter)) {
+        setCorrectGuess(true);
+    } else {
+        setCorrectGuess(false);
+    }
   }
 
   return (
@@ -71,7 +82,7 @@ function App() {
         <h1 className="title">Assembly: Endgame</h1>
         <p className="instructions">Guess the word in under 8 attempts to keep the programming world safe from Assembly!</p>
       </header>
-      <section className={clsx("status", {"game-won": isGameWon, "game-lost":isGameLost})}>
+      <section className={clsx("status", {"game-won": isGameWon, "game-lost":isGameLost, "incorrect": !correctGuess })}>
           {renderGameStatus()}
       </section>
       <section className="language-container">
