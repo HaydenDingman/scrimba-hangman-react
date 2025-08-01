@@ -10,11 +10,33 @@ function App() {
 
   const wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter)).length;
 
-  const isGameWon = currentWord.split("").filter(letter => !guessedLetters.includes(letter)).length === 0;
+  const isGameWon = currentWord.split("").every(letter => guessedLetters.includes(letter));
   const isGameLost = wrongGuessCount === (languages.length - 1)
   const isGameOver = isGameLost || isGameWon;
 
   // Turn currentWord into an array, then map to create elements.
+
+  function renderGameStatus() {
+    if (!isGameOver) {
+      return null;
+    }
+
+    if (isGameWon) {
+      return (
+        <>
+          <h2>You win!</h2>
+          <h3>Well done! 🎉</h3>
+        </>
+      )
+    } else {
+      return (
+        <>
+          <h2>Game Over!</h2>
+          <h3>You lose! Better start learning Assembly! 😭</h3>
+        </>
+      )
+    }
+  }
 
   const languageElems = languages.map((language, index) => {
       return (
@@ -49,9 +71,8 @@ function App() {
         <h1 className="title">Assembly: Endgame</h1>
         <p className="instructions">Guess the word in under 8 attempts to keep the programming world safe from Assembly!</p>
       </header>
-      <section className="status">
-        <h2>You win!</h2>
-        <h3>Well done! 🎉</h3>
+      <section className={clsx("status", {"game-won": isGameWon, "game-lost":isGameLost})}>
+          {renderGameStatus()}
       </section>
       <section className="language-container">
         {languageElems}

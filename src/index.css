@@ -34,17 +34,25 @@ main {
 }
 
 .status {
-  background-color: #10A95B;
   color: #F9F4DA;
-  padding: 1em;
+  padding: 1rem;
   font-weight: 500;
   border-radius: 4px;
   width: 100%;
+  min-height: 10vh;
+}
+
+.game-won {
+  background-color: #10A95B;
+}
+
+.game-lost {
+  background-color: #EC5D49;
 }
 
 .status > h2,
 .status > h3 {
-  margin: 0.25em;
+  margin: 0.125em;
 }
 
 .language-container {
